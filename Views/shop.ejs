@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <%-include('./Partials/styles.ejs')%>
+  </head>
+
+  <body>
+    <!-- header -->
+    <section id="header">
+      <a href="/"><img src="images/logo.png" alt="logo" class="logo" /></a>
+      <div>
+        <ul id="navbar">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/shop/1" class="active">Shop</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact Us</a>
+          </li>
+          <li>
+            <a id="lg-bag" href="/cart">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </a>
+          </li>
+          <a id="close" href="#">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+      <div id="mobile">
+        <a href="/cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </a>
+        <i id="bar" class="fas fa-outdent"></i>
+      </div>
+    </section>
+
+    <!-- hero section -->
+    <section id="page-header">
+      <h2>#Stay home</h2>
+      <p>Upto 70% off on all products</p>
+    </section>
+
+    <!-- products -->
+    <section id="products" class="section-p1">
+      <div class="pro-container">
+        <% locals.products.forEach(element => { %>
+        <div class="pro" onclick="window.location.href='/products/<%=element._id%>'">
+        <img src=<%=element.thumbnail%> alt= <%=element.title%> />
+          <div class="des">
+            <span><%=element.brand%></span>
+            <h5><%=element.title%></h5>
+            <div class="star">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <h4>$<%=element.price%></h4>
+          </div>
+          <a href="#" class="cart">
+            <i class="fas fa-shopping-cart"></i>
+          </a>
+        </div>
+        <% }) %>
+      </div>
+    </section>
+    <!-- pagenation -->
+    <section id="pagenation" class="section-p1">
+      <% for( let i=0;i<=locals.pages;i++) { %>
+      <a href="/shop/<%=i+1%>" style="margin-left: 10px"> <%= i+1 %> </a>
+      <% } %>
+      <!-- <a href="#" style="margin-left: 10px"
+        ><i class="fa-solid fa-arrow-right-long"></i
+      ></a> -->
+    </section>
+    <!-- newsletter -->
+    <section id="newsletter" class="section-p1">
+      <div class="newstext">
+        <h4>Sign-up for newsletters</h4>
+        <p>
+          get updates on new products and
+          <span>Special Offers</span>
+        </p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your email" />
+        <button class="normal">Sign up</button>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <%-include('./Partials/footer.ejs')%>
+    <%-include('./Partials//scripts.ejs')%>
+  </body>
+</html>

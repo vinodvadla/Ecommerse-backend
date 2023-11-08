@@ -1,0 +1,25 @@
+<script>
+  const bar = document.getElementById("bar");
+  const navbar = document.getElementById("navbar");
+  const close = document.getElementById("close");
+
+  bar.addEventListener("click", () => {
+    navbar.style.right = "0px";
+  });
+
+  close.addEventListener("click", () => {
+    navbar.style.right = "-300px";
+  });
+
+//   let singleproduct = document.getElementsByClassName("pro");
+
+//   for (let i = 0; i < singleproduct.length; i++) {
+//     singleproduct[i].addEventListener("click", () => {
+//       window.location.href = "/product";
+//     });
+//   }
+
+  const redirectSingle = (id) => {
+    window.location.href = `/products/${id}`;
+  };
+</script>

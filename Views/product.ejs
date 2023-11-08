@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <%-include('./Partials/styles.ejs')%>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <!-- header -->
+    <section id="header">
+      <a href="/"><img src="images/logo.png" alt="logo" class="logo" /></a>
+      <div>
+        <ul id="navbar">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/shop/1" class="active">Shop</a>
+          </li>
+          <li>
+            <a href="about.html">About</a>
+          </li>
+          <li>
+            <a href="contact.html">Contact Us</a>
+          </li>
+          <li>
+            <a id="lg-bag" href="cart.html">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </a>
+          </li>
+          <a id="close" href="#">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+      <div id="mobile">
+        <a href="cart.html">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </a>
+        <i id="bar" class="fas fa-outdent"></i>
+      </div>
+    </section>
+
+    <!-- product -->
+    <section id="prodetails">
+      <% if (locals.product) { %>
+      <div class="single-pro-image">
+        <img
+          src="<%=locals.product.thumbnail%>"
+          width="100%"
+          alt="product"
+          id="main-img"
+        />
+        <div class="small-img-group">
+          <% for( let i = 0; i < locals.product.images.length; i++ ) { %>
+          <div class="small-img-col">
+            <img
+              src="<%=locals.product.images[i]%>"
+              width="100%"
+              class="small-img"
+              alt="small-products"
+            />
+          </div>
+          <% } %>
+          <!-- <div class="small-img-col">
+                    <img
+                      src="img/products/f2.jpg"
+                      width="100%"
+                      class="small-img"
+                      alt="small-products"
+                    />
+                  </div> -->
+          <!-- <div class="small-img-col">
+                    <img
+                      src="img/products/f4.jpg"
+                      width="100%"
+                      class="small-img"
+                      alt="small-products"
+                    />
+                  </div>
+                  <div class="small-img-col">
+                    <img
+                      src="img/products/f5.jpg"
+                      width="100%"
+                      class="small-img"
+                      alt="small-products"
+                    />
+                  </div>
+                  <div class="small-img-col">
+                    <img
+                      src="img/products/f6.jpg"
+                      width="100%"
+                      class="small-img"
+                      alt="small-products"
+                    />
+                  </div> -->
+        </div>
+      </div>
+      <% } %>
+
+      <div class="single-pro-details">
+        <h6><%=locals.product.category%></h6>
+        <h4><%=locals.product.brand%></h4>
+        <h2>$<%=locals.product.price%></h2>
+        <!-- <select name="" id="">
+          <option value="">select size</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select> -->
+        <input type="number" value="1" />
+        <button class="normal">Add to Cart</button>
+        <h4>Product Details</h4>
+        <span> <%=locals.product.description%> </span>
+      </div>
+    </section>
+    <section id="products" class="section-p1">
+      <h2>Featured Products</h2>
+      <p>Trending collections with mouth lifting discounts</p>
+      <div class="pro-container">
+        <% if (locals.featured) { %>
+            <% locals.featured.forEach(element => { %>
+                <div class="pro" onclick="window.location.href='/products/<%=element._id%>'">
+                    <img src=<%=element.thumbnail%> alt=<%=element.title%>>
+                    <div class="des">
+                        <span><%=element.brand%></span>
+                        <h5><%=element.title%></h5>
+                        <div class="star">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>$<%=element.price%></h4>
+                    </div>
+                    <a href="#" class="cart">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                </div>
+            <% }) %>
+
+        <% } %>
+      </div>
+    </section>
+    <!-- newsletter -->
+    <section id="newsletter" class="section-p1">
+      <div class="newstext">
+        <h4>Sign-up for newsletters</h4>
+        <p>
+          get updates on new products and
+          <span>Special Offers</span>
+        </p>
+      </div>
+      <div class="form">
+        <input type="text" placeholder="Your email" />
+        <button class="normal">Sign up</button>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <%-include('./Partials/footer.ejs')%>
+  </body>
+  <script>
+    let mainImg = document.getElementById("main-img");
+    let smallimg = document.getElementsByClassName("small-img");
+    for (let i = 0; i < smallimg.length; i++) {
+      smallimg[i].addEventListener("click", () => {
+        mainImg.src = smallimg[i].src;
+      });
+    }
+  </script>
+</html>
