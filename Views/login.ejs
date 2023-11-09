@@ -15,14 +15,6 @@
         box-sizing: border-box;
         font-family: "Poppins", sans-serif;
       }
-
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background: linear-gradient(90deg, #fb37ff, #18b2de);
-      }
       .error {
         font-size: 20px;
         color: red;
@@ -31,6 +23,7 @@
       .wrapper {
         width: 420px;
         background-color: transparent;
+        background-color: crimson;
         border: 2px solid rgba(255, 255, 255, 02);
         border-radius: 10px;
         padding: 30px 40px;
@@ -73,32 +66,91 @@
       ::placeholder {
         color: #fff;
       }
+      .screen {
+        width: 100%;
+        height: 85vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* background-color: crimson; */
+      }
     </style>
+    <%-include('./Partials/styles.ejs')%> <%-include('./Partials/head.ejs')%>
   </head>
   <body>
-    <div class="wrapper">
-      <form action="/login" method="post">
-        <h1>Login</h1>
-        <% if (locals.error) { %>
-        <h2 class="error"><%=locals.error%></h2>
-        <% } %>
-        <div class="input">
-          <input type="text" placeholder="Email" required name="email" />
-        </div>
-        <div class="input">
-          <input
-            type="password"
-            placeholder="Password"
-            required
-            name="password"
-          />
-        </div>
-        <button type="submit" class="btn">Sign up</button>
-        <p>
-          Don't have an account?
-          <a href="/signup">Sign Up</a>
-        </p>
-      </form>
+    <section id="header">
+      <a href="/"><img src="images/logo.png" alt="logo" class="logo" /></a>
+      <div>
+        <ul id="navbar">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/shop/1">Shop</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact Us</a>
+          </li>
+          <% if (locals.user) { %>
+          <li>
+            <a href="/logout">logout</a>
+          </li>
+          <li>
+            <a href="/Profile">Profile</a>
+          </li>
+          <% } else { %>
+          <li>
+            <a href="/login" class="active">Login</a>
+          </li>
+          <li>
+            <a href="/signup">Signup</a>
+          </li>
+          <%}%>
+          <li>
+            <a id="lg-bag" href="/cart">
+              <i class="fa-solid fa-bag-shopping"></i>
+            </a>
+          </li>
+          <a id="close" href="#">
+            <i class="fa-solid fa-xmark"></i>
+          </a>
+        </ul>
+      </div>
+      <div id="mobile">
+        <a href="cart.html">
+          <i class="fa-solid fa-bag-shopping"></i>
+        </a>
+        <i id="bar" class="fas fa-outdent"></i>
+      </div>
+    </section>
+    <div class="screen">
+      <div class="wrapper">
+        <form action="/login" method="post">
+          <h1>Login</h1>
+          <% if (locals.error) { %>
+          <h2 class="error"><%=locals.error%></h2>
+          <% } %>
+          <div class="input">
+            <input type="text" placeholder="Email" required name="email" />
+          </div>
+          <div class="input">
+            <input
+              type="password"
+              placeholder="Password"
+              required
+              name="password"
+            />
+          </div>
+          <button type="submit" class="btn">Sign up</button>
+          <p>
+            Don't have an account?
+            <a href="/signup">Sign Up</a>
+          </p>
+        </form>
+      </div>
     </div>
   </body>
 </html>

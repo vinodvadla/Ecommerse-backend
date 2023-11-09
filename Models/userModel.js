@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 let userSchema = mongoose.Schema(
   {
     name: {
@@ -19,7 +18,7 @@ let userSchema = mongoose.Schema(
       type: String,
       default: "user",
     },
-    favorites: [{ type: String }],
+    favorites: [],
     default: [],
   },
   { timestamps: true }

@@ -8,7 +8,7 @@ const homeRender = async (req, res) => {
   try {
     let products = await Product.find({ id: { $lte: 8 } });
     let total = await Product.find({});
-    let newArrival = await Product.find({ id: { $gte: total.length - 8 } });
+    let newArrival = await Product.find({ id: { $gte: total.length - 7 } });
     res.render("home.ejs", { products: products, newArrival });
   } catch (error) {
     console.log(error);
@@ -85,6 +85,7 @@ const login = async (req, res) => {
     }
   }
 };
+
 module.exports = {
   homeRender,
   shopRender,

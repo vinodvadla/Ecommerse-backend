@@ -9,7 +9,6 @@
     </head>
 
     <body>
-        <!-- header -->
         <section id="header">
             <a href="#"><img src="images/logo.png" alt="logo" class="logo"/></a>
 
@@ -21,13 +20,27 @@
                     <li>
                         <a href="/shop/1">Shop</a>
                     </li>
-
                     <li>
                         <a href="/about" class="active">About</a>
                     </li>
                     <li>
                         <a href="/contact">Contact Us</a>
                     </li>
+                    <% if (locals.user) { %>
+                        <li>
+                          <a href="/logout">logout</a>
+                        </li>
+                        <li>
+                          <a href="/Profile">Profile</a>
+                        </li>
+                      <% } else { %>
+                        <li>
+                          <a href="/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/signup">Signup</a>
+                          </li>
+                      <%}%>
                     <li>
                         <a id="lg-bag" href="/cart">
                             <i class="fa-solid fa-bag-shopping"></i>

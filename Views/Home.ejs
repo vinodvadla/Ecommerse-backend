@@ -27,7 +27,22 @@
                     <li>
                         <a href="/contact">Contact Us</a>
                     </li>
-                    <li>
+                    <% if (locals.user) { %>
+                        <li>
+                          <a href="/logout">logout</a>
+                        </li>
+                        <li>
+                          <a href="/Profile">Profile</a>
+                        </li>
+
+                      <% } else { %>
+                        <li>
+                          <a href="/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/signup">Signup</a>
+                          </li>
+                      <%}%>
                         <a id="lg-bag" href="/cart">
                             <i class="fa-solid fa-bag-shopping"></i>
                         </a>
@@ -102,7 +117,7 @@
                             </div>
                             <h4>$<%=element.price%></h4>
                         </div>
-                        <a href="#" class="cart">
+                        <a href="/cart/home/<%=element._id%>" class="cart">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                     </div>
@@ -139,7 +154,7 @@
                             </div>
                             <h4>$<%=element.price%></h4>
                         </div>
-                        <a href="#" class="cart">
+                        <a href="/cart/home/<%=element._id%>" class="cart">
                             <i class="fas fa-shopping-cart"></i>
                         </a>
                     </div>

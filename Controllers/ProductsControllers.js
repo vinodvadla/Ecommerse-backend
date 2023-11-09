@@ -20,7 +20,7 @@ const AddProduct = async (req, res) => {
       await product.save();
     }
   } catch (err) {
-    res.status(404).json({ err: "error while adding product" });
+    res.json({err})
   }
 };
 
