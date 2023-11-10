@@ -11,7 +11,8 @@ const {
   loginRender,
   register,
   login,
-  profileRender
+  profileRender,
+  logOut,
 } = require("../Controllers/EcomControllers");
 
 const Router = express.Router();
@@ -25,5 +26,6 @@ Router.get("/", homeRender)
   .get("/login", loginRender)
   .post("/signup", register)
   .post("/login", login)
-  .get("/profile", profileRender);
+  .get("/profile", profileRender)
+  .get("/logout", logOut);
 module.exports = Router;

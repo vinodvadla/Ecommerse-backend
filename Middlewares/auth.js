@@ -4,16 +4,15 @@ const jwt = require("jsonwebtoken");
 const auth = async (req, res, next) => {
   try {
     const token = req.cookies.token;
-    console.log(token)
     if (token) {
       const verifiedUser = await jwt.verify(token, "vinod7144");
       req.user = verifiedUser;
+      next();
     } else {
-      res.render("login.ejs");
+      next();
     }
-    next();
   } catch (error) {
-    res.json(error);
+    next();
   }
 };
 

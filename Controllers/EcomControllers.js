@@ -1,15 +1,19 @@
 const User = require("../Models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const auth = require("../Middlewares/auth");
 const Product = require("../Models/productModel");
 
 const homeRender = async (req, res) => {
   try {
     let products = await Product.find({ id: { $lte: 8 } });
     let total = await Product.find({});
+    let user = req.user;
     let newArrival = await Product.find({ id: { $gte: total.length - 7 } });
-    res.render("home.ejs", { products: products, newArrival });
+    if (user) {
+      res.render("home.ejs", { products: products, newArrival, user });
+    } else {
+      res.render("home.ejs", { products: products, newArrival });
+    }
   } catch (error) {
     console.log(error);
   }
@@ -22,22 +26,48 @@ const shopRender = async (req, res) => {
       .skip((page - 1) * 16)
       .limit(page * 16);
     let pages = Math.floor(totalProducts.length / 16);
-    res.render("shop.ejs", { products, pages });
+    let user = req.user;
+    if (user) {
+      res.render("shop.ejs", { products, pages, user });
+    } else {
+      res.render("shop.ejs", { products, pages });
+    }
   } catch (error) {
     console.log(error);
   }
 };
 const aboutRender = (req, res) => {
-  res.render("about.ejs");
+  let user = req.user;
+  if (user) {
+    res.render("about.ejs", { user });
+  } else {
+    res.render("about.ejs");
+  }
 };
 const contactRender = (req, res) => {
+  let user = req.user;
+  if (user) {
+    res.render("contact.ejs", { user });
+  } else {
+    res.render("contact.ejs");
+  }
   res.render("contact.ejs");
 };
 const cartRender = (req, res) => {
-  res.render("cart.ejs");
+  let user = req.user;
+  if (user) {
+    res.render("cart.ejs", { user });
+  } else {
+    res.render("cart.ejs");
+  }
 };
 const singleProduct = (req, res) => {
-  res.render("product.ejs");
+  let user = req.user;
+  if (user) {
+    res.render("product.ejs", { user });
+  } else {
+    res.render("product.ejs");
+  }
 };
 const signupRender = (req, res) => {
   res.render("signup.ejs");
@@ -46,13 +76,17 @@ const loginRender = (req, res) => {
   res.render("login.ejs");
 };
 const profileRender = (req, res) => {
-  res.render("profile.ejs");
+  if (req.user) {
+    let user = req.user;
+    res.render("profile.ejs", { user });
+  } else {
+    res.render("profile.ejs");
+  }
 };
 const register = async (req, res) => {
   try {
     let { name, email, password } = req.body;
     let hashedPass = await bcrypt.hash(password, 10);
-    console.log(hashedPass);
     let user = new User({
       name,
       email,
@@ -85,7 +119,10 @@ const login = async (req, res) => {
     }
   }
 };
-
+const logOut = async (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/");
+};
 module.exports = {
   homeRender,
   shopRender,
@@ -97,5 +134,6 @@ module.exports = {
   loginRender,
   register,
   login,
-  profileRender
+  profileRender,
+  logOut,
 };
